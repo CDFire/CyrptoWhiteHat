@@ -1,0 +1,14 @@
+Handshake Protocol:
+- Key Exchange: Your protocol could begin with a Diffie-Hellman key exchange to securely establish a symmetric key between the client (ATM) and the server (bank). 
+  This phase ensures that both parties have a shared secret without ever transmitting it over the network.
+- Public Key Infrastructure (PKI): Both the client and server should have public/private key pairs. You can use your PKC (Public Key Cryptography) implementation here. 
+  The server's public key could be sent to the client during the handshake, signed with the server's private key. 
+  The client verifies the signature using the server's public key (which could be distributed beforehand or through a certificate signed by a trusted CA simulated in your project).
+- Session Key Establishment: Once the asymmetric key operations are completed, use the symmetric key derived from the Diffie-Hellman exchange for encrypting the session. 
+  This key can be used with your symmetric cipher implementation (e.g., DES).
+- Secure Channel: After the session key is established, all further communication should be encrypted using the symmetric key.
+
+Authentication:
+- Server Authentication: Use a digital signature scheme based on PKC. The server signs a message (could be the public key or a nonce) that the client can verify. 
+  This ensures the client is talking to the legitimate server.
+- Client Authentication (Optional): If client authentication is required, a similar process can be used where the client also has a public/private key pair and sends a signed message to the server.
